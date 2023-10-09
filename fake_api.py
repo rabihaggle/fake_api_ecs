@@ -24,9 +24,9 @@ def hello_world():
 def database_status():
     ret, exp = checkstatusbd(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME)
     if ret:
-        return jsonify({"status":ret,"message":"Mysql OK"})
+        return jsonify({"status":ret,"message":"Mysql OK"}),200
     else:
-        return jsonify({"status":ret,"message":"Mysql ERROR","Exception": exp})
+        return jsonify({"status":ret,"message":"Mysql ERROR","Exception": exp}),500
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",debug=True,port=5000)
