@@ -18,6 +18,6 @@ def checkstatusbd(db_host,db_user,db_password,db_name):
     except Exception as e:
         return False
     finally:
-        if conn in locals():
+         if 'conn' in locals():
             conn.close()
     
