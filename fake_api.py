@@ -1,6 +1,17 @@
 from flask import Flask, jsonify
+from conn_mysql import checkstatusbd
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
+
+# Access environment variables
+DB_HOST = os.getenv('DB_HOST')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_NAME = os.getenv('DB_NAME')
 
 @app.route('/')
 def hello_world():
@@ -9,12 +20,12 @@ def hello_world():
     }
     return jsonify(response), 200
 
-@app.route('/database')
+@app.route('/database',methods=['GET'])
 def database_status():
-    response = {
-        'message': 'Database OK'
-    }
-    return jsonify(response), 200
+    if checkstatusbd(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME):
+        return jsonify({"status":"ok","message":"Mysql OK"})
+    else:
+        return jsonify({"status":"error","message":"Mysql ERROR"})
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",debug=True,port=5000)
