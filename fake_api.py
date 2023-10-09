@@ -22,10 +22,11 @@ def hello_world():
 
 @app.route('/database',methods=['GET'])
 def database_status():
-    if checkstatusbd(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME):
-        return jsonify({"status":"ok","message":"Mysql OK"})
+    ret, exp = checkstatusbd(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME)
+    if ret:
+        return jsonify({"status":ret,"message":"Mysql OK"})
     else:
-        return jsonify({"status":"error","message":"Mysql ERROR"})
+        return jsonify({"status":ret,"message":"Mysql ERROR","Exception": exp})
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",debug=True,port=5000)

@@ -11,12 +11,12 @@ def checkstatusbd(db_host,db_user,db_password,db_name):
             database=db_name
         )
         if conn.is_connected():
-            return True
+            return True, "True"
         else:
-            return False
+            return False, "Not Exception"
     
     except Exception as e:
-        return False
+        return False, str(e) 
     finally:
          if 'conn' in locals():
             conn.close()
