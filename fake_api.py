@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from chemical import information
+from rand_str import information
 app = Flask(__name__)
 
 @app.route('/')
