@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from rand_str import information
+from rand_str import information, chemical_formula_information
 app = Flask(__name__)
 
 @app.route('/')
@@ -20,6 +20,11 @@ def database_status():
 def random_string(random_word):
     str_ran = information(random_word)
     return str_ran
+
+@app.route('/chemical/<chemical_formula>',methods=['GET'])
+def chemical_formula_get(chemical_formula):
+    response = chemical_formula_information(chemical_formula)
+    return response
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",debug=True,port=5000)
