@@ -16,3 +16,34 @@ def chemical_formula_information(chemical_formula):
         return  f'No compound found for formula: {chemical_formula}'
     except Exception as e:
         return f'An error occurred: {str(e)}'
+    
+    
+def aspirin_info():
+    try:
+        compounds = pcp.get_compounds('Aspirin', 'name')
+        if compounds:
+            list_comp = []
+            for comp in compounds:
+                list_comp.append(comp.iupac_name)
+            return f'Compound name: {list_comp}'
+    except IndexError:
+        return ' Ohhh Error !'
+    except Exception as e:
+        return f'An error occurred: {str(e)}'
+    
+def information_medicament(search):
+    try:
+        compounds = pcp.get_compounds(search, 'name')
+        if compounds:
+            list_comp = []
+            list_synonyms = []
+            for comp in compounds:
+                list_comp.append(comp.iupac_name)
+                list_synonyms.append(comp.synonyms)
+        if len(list_synonyms) == 1:
+            list_synonyms = list_synonyms[0]
+            return list_comp, list_synonyms
+    except IndexError:
+        return f'Ohhh Error {search}'
+    except Exception as e:
+        return f'An error occurred: {str(e)}'
